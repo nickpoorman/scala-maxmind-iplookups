@@ -38,3 +38,13 @@ lazy val root = project
       Dependencies.specs2
     )
   )
+  .settings(
+    test in assembly := {},
+    assemblyShadeRules in assembly := Seq(
+      ShadeRule.rename("com.fasterxml.jackson.core.**" -> "shadedjackson.core.@1").inAll,
+      ShadeRule
+        .rename("com.fasterxml.jackson.annotation.**" -> "shadedjackson.annotation.@1")
+        .inAll,
+      ShadeRule.rename("com.fasterxml.jackson.databind.**" -> "shadedjackson.databind.@1").inAll
+    )
+  )
